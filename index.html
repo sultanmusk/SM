@@ -1,55 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Something new is coming soon.">
-  <title>Coming Soon</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ["Inter", "sans-serif"]
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF 8">
+<meta name="viewport" content="width=device width, initial scale=1.0">
+<meta name="description" content="Something exciting is coming soon.">
+<title>Coming Soon</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Inter,Arial,sans-serif;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:#f5f5f7;
+color:#111;
+transition:background .5s,color .5s;
+}
+
+body.dark{
+background:#08080a;
+color:#fff;
+}
+
+.bg{
+position:fixed;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+}
+
+.orb{
+position:absolute;
+width:420px;
+height:420px;
+border-radius:50%;
+filter:blur(90px);
+opacity:.35;
+animation:float 9s ease in out infinite alternate;
+}
+
+.orb.one{
+background:#7c3aed;
+top:-180px;
+left:-100px;
+}
+
+.orb.two{
+background:#06b6d4;
+right:-160px;
+bottom:-180px;
+animation-delay:2s;
+}
+
+.grid{
+position:absolute;
+inset:0;
+background-image:
+linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+background-size:42px 42px;
+mask-image:linear-gradient(to bottom,transparent,black,transparent);
+}
+
+.dark .grid{
+background-image:
+linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+}
+
+@keyframes float{
+from{transform:translate(0,0) scale(1)}
+to{transform:translate(45px,30px) scale(1.12)}
+}
+
+.wrapper{
+position:relative;
+width:min(92%,620px);
+z-index:2;
+}
+
+.theme{
+position:absolute;
+right:0;
+top:-58px;
+width:42px;
+height:42px;
+border:1px solid rgba(127,127,127,.2);
+border-radius:50%;
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(16px);
+cursor:pointer;
+font-size:17px;
+transition:.3s;
+}
+
+.dark .theme{
+background:rgba(30,30,35,.7);
+color:#fff;
+}
+
+.theme:hover{
+transform:rotate(15deg) scale(1.08);
+}
+
+.card{
+padding:52px 48px;
+border:1px solid rgba(127,127,127,.18);
+border-radius:30px;
+background:rgba(255,255,255,.68);
+backdrop-filter:blur(25px);
+box-shadow:0 30px 80px rgba(0,0,0,.1);
+text-align:center;
+animation:appear .8s ease both;
+}
+
+.dark .card{
+background:rgba(18,18,22,.72);
+box-shadow:0 30px 90px rgba(0,0,0,.45);
+}
+
+@keyframes appear{
+from{
+opacity:0;
+transform:translateY(25px) scale(.97);
+}
+to{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+}
+
+.pill{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 14px;
+border-radius:50px;
+background:rgba(124,58,237,.1);
+color:#7c3aed;
+font-size:12px;
+font-weight:700;
+letter-spacing:1.5px;
+margin-bottom:25px;
+}
+
+.dot{
+width:7px;
+height:7px;
+border-radius:50%;
+background:#7c3aed;
+box-shadow:0 0 14px #7c3aed;
+animation:pulse 1.7s infinite;
+}
+
+@keyframes pulse{
+50%{opacity:.35;transform:scale(.7)}
+}
+
+h1{
+font-size:clamp(45px,9vw,78px);
+line-height:.98;
+letter-spacing:-4px;
+font-weight:800;
+margin-bottom:22px;
+}
+
+.gradient{
+background:linear-gradient(110deg,#7c3aed,#06b6d4);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.description{
+max-width:470px;
+margin:auto;
+font-size:16px;
+line-height:1.7;
+color:#6b6b73;
+margin-bottom:32px;
+}
+
+.dark .description{
+color:#a5a5ae;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:12px;
+text-align:left;
+}
+
+.field{
+position:relative;
+}
+
+input{
+width:100%;
+height:56px;
+border:1px solid rgba(127,127,127,.2);
+border-radius:14px;
+padding:0 17px;
+background:rgba(255,255,255,.7);
+color:#111;
+font-size:15px;
+outline:none;
+transition:.25s;
+}
+
+.dark input{
+background:rgba(255,255,255,.055);
+color:#fff;
+border-color:rgba(255,255,255,.12);
+}
+
+input:focus{
+border-color:#7c3aed;
+box-shadow:0 0 0 4px rgba(124,58,237,.1);
+transform:translateY(-1px);
+}
+
+button.submit{
+height:56px;
+border:0;
+border-radius:14px;
+background:linear-gradient(110deg,#7c3aed,#06b6d4);
+color:#fff;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+transition:.3s;
+}
+
+button.submit:hover{
+transform:translateY(-2px);
+box-shadow:0 15px 30px rgba(124,58,237,.25);
+}
+
+button.submit:active{
+transform:scale(.98);
+}
+
+button.submit span{
+position:relative;
+z-index:2;
+}
+
+.success{
+display:none;
+margin-top:16px;
+padding:12px;
+border-radius:12px;
+background:rgba(34,197,94,.1);
+color:#16a34a;
+font-size:14px;
+}
+
+.footer{
+margin-top:25px;
+font-size:12px;
+color:#999;
+}
+
+@media(max-width:600px){
+.wrapper{
+width:92%;
+}
+
+.card{
+padding:42px 22px;
+border-radius:24px;
+}
+
+.theme{
+right:5px;
+top:-54px;
+}
+
+h1{
+letter-spacing:-2.5px;
+}
+
+.description{
+font-size:14px;
+}
+
+.orb{
+width:300px;
+height:300px;
+filter:blur(70px);
+}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{
+animation:none!important;
+transition:none!important;
+}
+}
+</style>
 </head>
 
-<body class="min-h-screen bg-zinc-950 text-white font-sans flex items-center justify-center px-6">
+<body>
 
-  <main class="w-full max-w-3xl text-center">
+<div class="bg">
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="grid"></div>
+</div>
 
-    <div class="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-black text-xl font-bold shadow-2xl">
-      S
-    </div>
+<div class="wrapper">
 
-    <p class="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-zinc-400">
-      Something new
-    </p>
+<button class="theme" id="theme" aria-label="Toggle theme">☾</button>
 
-    <h1 class="text-5xl font-extrabold tracking-tight sm:text-7xl">
-      Coming Soon
-    </h1>
+<section class="card">
 
-    <p class="mx-auto mt-6 max-w-xl text-base leading-7 text-zinc-400 sm:text-lg">
-      We are building something fresh, simple and memorable.
-      Stay tuned for the launch.
-    </p>
+<div class="pill">
+<span class="dot"></span>
+COMING SOON
+</div>
 
-    <div class="mx-auto mt-10 h-px w-24 bg-zinc-700"></div>
+<h1>
+Something<br>
+<span class="gradient">beautiful</span> is coming.
+</h1>
 
-    <p class="mt-8 text-sm text-zinc-500">
-      © 2026 All rights reserved
-    </p>
+<p class="description">
+We are preparing something special.
+Leave your details below and be the first to know when we launch.
+</p>
 
-  </main>
+<form id="form" action="https://api.web3forms.com/submit" method="POST">
+
+<input
+type="hidden"
+name="access_key"
+value="e2f52a3a-d942-4bca-a36f-c6df8a19b142">
+
+<input
+type="hidden"
+name="subject"
+value="New Coming Soon Signup">
+
+<input
+type="hidden"
+name="from_name"
+value="Coming Soon">
+
+<div class="field">
+<input
+type="text"
+name="name"
+placeholder="Your name"
+autocomplete="name"
+required>
+</div>
+
+<div class="field">
+<input
+type="email"
+name="email"
+placeholder="Your email address"
+autocomplete="email"
+required>
+</div>
+
+<button class="submit" type="submit">
+<span>Notify me</span>
+</button>
+
+</form>
+
+<div class="success" id="success">
+You're on the list. We'll notify you when we launch.
+</div>
+
+<div class="footer">
+Launching soon
+</div>
+
+</section>
+</div>
+
+<script>
+const theme=document.getElementById("theme");
+const form=document.getElementById("form");
+const success=document.getElementById("success");
+
+const saved=localStorage.getItem("theme");
+
+if(saved==="dark"){
+document.body.classList.add("dark");
+theme.textContent="☀";
+}
+
+theme.addEventListener("click",()=>{
+document.body.classList.toggle("dark");
+
+const dark=document.body.classList.contains("dark");
+
+theme.textContent=dark?"☀":"☾";
+localStorage.setItem("theme",dark?"dark":"light");
+});
+
+form.addEventListener("submit",async event=>{
+event.preventDefault();
+
+const button=form.querySelector(".submit");
+const original=button.innerHTML;
+
+button.disabled=true;
+button.innerHTML="<span>Sending...</span>";
+
+try{
+const response=await fetch(form.action,{
+method:"POST",
+body:new FormData(form)
+});
+
+const data=await response.json();
+
+if(data.success){
+form.reset();
+form.style.display="none";
+success.style.display="block";
+}else{
+button.disabled=false;
+button.innerHTML=original;
+alert("Something went wrong. Please try again.");
+}
+}catch(error){
+button.disabled=false;
+button.innerHTML=original;
+alert("Unable to submit. Please check your connection.");
+}
+});
+</script>
 
 </body>
 </html>
